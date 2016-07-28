@@ -7,4 +7,18 @@ TARGET = daemon
 INCLUDEPATH += .
 
 # Input
-SOURCES += daemon.cpp
+SOURCES += daemon.cpp \
+    rawbatteryinfo.cpp \
+    batteryinfo.cpp \
+    genericbatteryinfo.cpp \
+    processinfo.cpp \
+    logfile.cpp
+
+HEADERS += \
+    rawbatteryinfo.h \
+    batteryinfo.h \
+    genericbatteryinfo.h \
+    processinfo.h \
+    logfile.h
+
+LIBS += -lprocps
