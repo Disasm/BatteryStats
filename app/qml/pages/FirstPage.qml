@@ -54,10 +54,6 @@ Page {
                 id: batteryDataModel
             }
 
-            ProcessDataModel {
-                id: processDataModel
-            }
-
             Column {
                 id: mainColumn
                 width: parent.width
@@ -69,10 +65,14 @@ Page {
             }
         }
 
-        model: processDataModel.size
+        ProcessDataModel {
+            id: processDataModel
+        }
+
+        model: processDataModel
         delegate: ProcessItem {
-            id: delegate
-            data: processDataModel.get(index)
+            name: model.name
+            load: model.load
         }
 
         PullDownMenu {
