@@ -14,7 +14,8 @@ TARGET = BatteryStats
 
 CONFIG += sailfishapp
 
-SOURCES += src/BatteryStats.cpp
+SOURCES += src/BatteryStats.cpp \
+    src/BatteryDataModel.cpp
 
 OTHER_FILES += qml/BatteryStats.qml \
     qml/cover/CoverPage.qml \
@@ -37,4 +38,7 @@ CONFIG += sailfishapp_i18n
 # following TRANSLATIONS line. And also do not forget to
 # modify the localized app name in the the .desktop file.
 TRANSLATIONS += translations/BatteryStats-de.ts
+
+HEADERS += \
+    src/BatteryDataModel.h
 
