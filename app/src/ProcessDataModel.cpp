@@ -2,7 +2,7 @@
 
 bool comparator(const QPair<QString, float>& e1, const QPair<QString, float>& e2)
 {
-    return (e1.second < e2.second);
+    return (e1.second > e2.second);
 }
 
 ProcessDataModel::ProcessDataModel()
@@ -73,6 +73,8 @@ void ProcessDataModel::logFileChanged()
 
         //m_items.append(item);
     }*/
+
+    sort();
 
     layoutChanged();
 }
