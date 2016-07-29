@@ -47,7 +47,7 @@ int main()
     bi = BatteryInfo::detect();
     if (bi == 0) return 1;
 
-    log.open("/tmp/battery.log");
+    log.open("/home/nemo/battery.log");
 
     signal(SIGINT, sighandler);
     signal(SIGTERM, sighandler);
@@ -55,7 +55,7 @@ int main()
 
     while (true)
     {
-        sleep(1);
+        sleep(10);
         tick();
     }
 
