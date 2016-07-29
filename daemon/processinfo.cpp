@@ -59,6 +59,8 @@ bool parseProcessRecord(const std::string &str, ProcessRecord &r)
     time *= 60;
     time += std::atoi(s_time.c_str());
 
+    if (time < 10) return false;
+
     r.pid = std::atoi(s_pid.c_str());
     r.time = time;
     r.name = s_name;
