@@ -196,8 +196,8 @@ Rectangle {
                                  charging: metric.charging
                              });
                 if (metrics.length > 1) {
-//                    drawPrice(ctx, Qt.rgba(1, 0, 0, 1), "capacity", metrics, 0, 1);
-                    drawPrice(ctx, Qt.rgba(0, 1, 0, 1), "charging", metrics, 0, 1);
+                    drawPrice(ctx, Qt.rgba(1, 0, 0, 1), "capacity", metrics, 0, 1);
+//                    drawPrice(ctx, Qt.rgba(0, 1, 0, 1), "charging", metrics, 0, 1);
                 }
             }
         }
