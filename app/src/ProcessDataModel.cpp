@@ -5,6 +5,7 @@ ProcessDataModel::ProcessDataModel()
     m_items.append(qMakePair(QString("localhost"), 0.7));
     m_items.append(qMakePair(QString("windowsTrueApp"), 0.1));
     m_items.append(qMakePair(QString("dont_kill_me_please"), 1));
+    m_logFile = 0;
 }
 
 QHash<int, QByteArray> ProcessDataModel::roleNames() const
