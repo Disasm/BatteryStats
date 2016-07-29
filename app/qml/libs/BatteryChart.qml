@@ -42,8 +42,8 @@ import QtQuick 2.0
 
 Rectangle {
     id: chart
-    width: 320
-    height: 320
+    width: parent.width
+    height: 400
     color: "transparent"
     property var stockModel: null
 
@@ -93,7 +93,7 @@ Rectangle {
             ctx.restore();
         }
 
-        function drawPrice(ctx, color, price, points, lowest, highest)
+        function drawPrice(ctx, color, price, points, lowest, highest, elapsed)
         {
             ctx.save();
             ctx.globalAlpha = 0.7;
@@ -105,7 +105,7 @@ Rectangle {
             var end = points.length;
             for (var i = 0; i < end; i+=pixelSkip) {
                 var value = points[i][price];
-                var x = i * w;
+                var x = i * canvas.width * points[i][elapsed];
                 var y = canvas.height * (1.0 - value/highest);
 
                 if (i == 0) {
@@ -187,19 +187,28 @@ Rectangle {
             ctx.lineWidth = 1;
 
             drawBackground(ctx);
-
-            var metrics = [];
-            for (var i = 0; i < stockModel.size; i+=1) {
-                var metric = stockModel.get(i);
-                metrics.push({
-                                 capacity: metric.capacity,
-                                 charging: metric.charging
-                             });
-                if (metrics.length > 1) {
-                    drawPrice(ctx, Qt.rgba(1, 0, 0, 1), "capacity", metrics, 0, 1);
-//                    drawPrice(ctx, Qt.rgba(0, 1, 0, 1), "charging", metrics, 0, 1);
+            ctx.save();
+            ctx.globalAlpha = 0.7;
+     //       if(metric.charging == true) {
+                ctx.strokeStyle = Qt.rgba(1, 0, 0, 1);
+     /*       } else {
+                ctx.strokeStyle = Qt.rgba(0, 1, 0, 1);
+            }*/
+            ctx.lineWidth = 3;
+            ctx.beginPath();
+            if(stockModel.size > 1) {
+                var elapsed = stockModel.get(stockModel.size - 1).time;
+                for (var i = 0; i < stockModel.size; i+=1) {
+                    var metric = stockModel.get(i);
+                    if(i == 0) {
+                        ctx.moveTo(0, canvas.height * (1 - metric.capacity));
+                    } else {
+                        ctx.lineTo(canvas.width * metric.time / elapsed, canvas.height * (1 - metric.capacity));
+                    }
                 }
             }
+            ctx.stroke();
+            ctx.restore();
         }
     }
 }

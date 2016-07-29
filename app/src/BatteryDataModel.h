@@ -12,6 +12,7 @@ class BatteryDataModel : public QObject
 {
     Q_OBJECT
     Q_PROPERTY(int size READ size NOTIFY sizeChanged)
+    Q_PROPERTY(int elapsed READ elapsed NOTIFY elapsedChanged)
     Q_PROPERTY(LogFile* logFile READ logFile WRITE setLogFile)
 
     struct Item
@@ -24,6 +25,7 @@ class BatteryDataModel : public QObject
 public:
     BatteryDataModel();
 
+    int elapsed() const;
     int size() const;
 
     LogFile* logFile() { return m_logFile; }
@@ -32,6 +34,7 @@ public:
     QVariant get(int index) const;
 
 signals:
+    void elapsedChanged();
     void sizeChanged();
 
 public slots:
@@ -42,6 +45,7 @@ private slots:
     void logFileChanged();
 
 private:
+    int m_elapsed;
     QVector<Item> m_items;
     LogFile* m_logFile;
 };
