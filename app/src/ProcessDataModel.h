@@ -33,6 +33,7 @@ public slots:
 
 private slots:
     void logFileChanged();
+    void sort();
 
 private:
     QVector<QPair<QString, float> > m_items;

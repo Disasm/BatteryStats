@@ -1,10 +1,16 @@
 #include "ProcessDataModel.h"
 
+bool comparator(const QPair<QString, float>& e1, const QPair<QString, float>& e2)
+{
+    return (e1.second < e2.second);
+}
+
 ProcessDataModel::ProcessDataModel()
 {
     m_items.append(qMakePair(QString("localhost"), 0.7));
     m_items.append(qMakePair(QString("windowsTrueApp"), 0.1));
     m_items.append(qMakePair(QString("dont_kill_me_please"), 1));
+    sort();
     m_logFile = 0;
 }
 
@@ -69,5 +75,10 @@ void ProcessDataModel::logFileChanged()
     }*/
 
     layoutChanged();
+}
+
+void ProcessDataModel::sort()
+{
+    qSort(m_items.begin(), m_items.end(), comparator);
 }
 
