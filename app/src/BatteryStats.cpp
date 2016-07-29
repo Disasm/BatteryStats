@@ -45,7 +45,9 @@ int main(int argc, char *argv[])
     //   - SailfishApp::pathTo(QString) to get a QUrl to a resource file
     //
     // To display the view, call "show()" (will show fullscreen on device).
-
+//    QQuickView* view = SailfishApp::createView();
+//    view->engine()->addImportPath("/usr/share/BatteryStats/qml/jbQuick/Chart");
+//    view->show();
     return SailfishApp::main(argc, argv);
 }
 

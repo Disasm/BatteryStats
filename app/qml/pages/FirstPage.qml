@@ -30,6 +30,7 @@
 
 import QtQuick 2.0
 import Sailfish.Silica 1.0
+import "../libs"
 
 
 Page {
@@ -60,6 +61,11 @@ Page {
             PageHeader {
                 title: qsTr("UI Template")
             }
+
+            StockChart {
+
+            }
+
             Label {
                 x: Theme.paddingLarge
                 text: qsTr("Hello Sailors")
