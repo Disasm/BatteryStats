@@ -16,11 +16,13 @@ CONFIG += sailfishapp
 
 HEADERS += \
     src/BatteryDataModel.h \
-    src/LogFile.h
+    src/LogFile.h \
+    src/ProcessDataModel.h
 
 SOURCES += src/BatteryStats.cpp \
     src/BatteryDataModel.cpp \
-    src/LogFile.cpp
+    src/LogFile.cpp \
+    src/ProcessDataModel.cpp
 
 OTHER_FILES += qml/BatteryStats.qml \
     qml/cover/CoverPage.qml \
