@@ -2,9 +2,9 @@
 
 ProcessDataModel::ProcessDataModel()
 {
-    m_items.append(qMakePair("localhost", 0.7));
-    m_items.append(qMakePair("windowsTrueApp", 0.1));
-    m_items.append(qMakePair("dont_kill_me_please", 1));
+    m_items.append(qMakePair(QString("localhost"), 0.7));
+    m_items.append(qMakePair(QString("windowsTrueApp"), 0.1));
+    m_items.append(qMakePair(QString("dont_kill_me_please"), 1));
 }
 
 int ProcessDataModel::size() const

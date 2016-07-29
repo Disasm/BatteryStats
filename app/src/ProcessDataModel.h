@@ -5,6 +5,7 @@
 #include <QPair>
 #include <QString>
 #include <QVector>
+#include <QVariant>
 
 class ProcessDataModel : public QObject
 {
@@ -23,7 +24,7 @@ signals:
     void sizeChanged();
 
 private:
-    QVector<QPair<QString, float> m_items;
+    QVector<QPair<QString, float> > m_items;
 };
 
 #endif // PROCESSDATAMODEL_H

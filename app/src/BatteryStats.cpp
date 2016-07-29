@@ -47,7 +47,7 @@ int main(int argc, char *argv[])
 
     qmlRegisterType<LogFile>("harbour.batterystats", 1, 0, "LogFile");
     qmlRegisterType<BatteryDataModel>("harbour.batterystats", 1, 0, "BatteryDataModel");
-    qmlReqisterType<ProcessDataModel>("harbour.batterystats", 1, 0, "ProcessDataModel");
+    qmlRegisterType<ProcessDataModel>("harbour.batterystats", 1, 0, "ProcessDataModel");
 
     return SailfishApp::main(argc, argv);
 }
