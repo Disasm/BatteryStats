@@ -14,7 +14,11 @@ TARGET = BatteryStats
 
 CONFIG += sailfishapp
 
-SOURCES += src/BatteryStats.cpp
+HEADERS += \
+    src/BatteryDataModel.h
+
+SOURCES += src/BatteryStats.cpp \
+    src/BatteryDataModel.cpp
 
 OTHER_FILES += qml/BatteryStats.qml \
     qml/cover/CoverPage.qml \

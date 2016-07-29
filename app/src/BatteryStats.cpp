@@ -28,12 +28,9 @@
   SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
-#ifdef QT_QML_DEBUG
 #include <QtQuick>
-#endif
-
 #include <sailfishapp.h>
-
+#include "BatteryDataModel.h"
 
 int main(int argc, char *argv[])
 {
@@ -45,9 +42,9 @@ int main(int argc, char *argv[])
     //   - SailfishApp::pathTo(QString) to get a QUrl to a resource file
     //
     // To display the view, call "show()" (will show fullscreen on device).
-//    QQuickView* view = SailfishApp::createView();
-//    view->engine()->addImportPath("/usr/share/BatteryStats/qml/jbQuick/Chart");
-//    view->show();
+
+    qmlRegisterType<BatteryDataModel>("harbour.batterystats", 1, 0, "BatteryDataModel");
+
     return SailfishApp::main(argc, argv);
 }
 
