@@ -7,7 +7,7 @@
 #include <QPair>
 
 
-class BatteryDataModel : QObject
+class BatteryDataModel : public QObject
 {
     Q_OBJECT
     Q_PROPERTY(int size READ size NOTIFY sizeChanged)

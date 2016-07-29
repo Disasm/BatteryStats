@@ -31,6 +31,7 @@
 import QtQuick 2.0
 import Sailfish.Silica 1.0
 import "../libs"
+import harbour.batterystats 1.0
 
 
 Page {
@@ -62,8 +63,13 @@ Page {
                 title: qsTr("UI Template")
             }
 
-            StockChart {
+            BatteryDataModel {
+                id: batteryDataModel
+            }
 
+            StockChart {
+                id: stockChart
+                stockModel: batteryDataModel
             }
 
             Label {

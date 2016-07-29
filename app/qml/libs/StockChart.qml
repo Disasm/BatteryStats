@@ -45,11 +45,12 @@ Rectangle {
     width: 320
     height: 320
     color: "transparent"
+    property var stockModel: null
 
     Canvas {
         id: canvas
         width: parent.width
-        anchors.top: toDate.bottom
+        anchors.top: parent.top
         anchors.bottom: parent.bottom
         renderTarget: Canvas.Image
         antialiasing: true
@@ -92,7 +93,7 @@ Rectangle {
             ctx.restore();
         }
 
-        function drawPrice(ctx, from, to, color, price, points, highest)
+        function drawPrice(ctx, color, price, points, lowest, highest)
         {
             ctx.save();
             ctx.globalAlpha = 0.7;
@@ -186,53 +187,17 @@ Rectangle {
             ctx.lineWidth = 1;
 
             drawBackground(ctx);
-            if (!stockModel.ready)
-                return;
 
-            first = stockModel.indexOf(chart.startDate);
-            last = stockModel.indexOf(chart.endDate);
-
-            // Uncomment the line below to see the range of model
-            // item that gets painted based on the current settings.
-            //console.log("Painting " + stockModel.stockId + " from " + chart.startDate + " to " + chart.endDate + ", indices [" + first + ".." + last + "], " + (first-last+1) + "/" + stockModel.count + " points");
-
-            if (first >= 0 && last >= 0) {
-                // Use the model's high-values to scale the price and volume charts.
-                // Note that this may result in noticeably flat graphs if the loaded
-                // timespan is much longer than the timespan shown. E.g. a high price
-                // from a year back may effectively flatten the past week view.
-                var highestPrice = stockModel.highestPrice;
-                var highestVolume = stockModel.highestVolume;
-                var points = [];
-
-                // In the model the quotes are stored from newest to oldest
-                // but we want our points array to contain quotes in chronological
-                // order. Hence we walk the model backwards.
-                for (var i = first; i >= last; i-=pixelSkip) {
-                    var price = stockModel.get(i);
-                    points.push({
-                        open: price.open,
-                        close: price.close,
-                        high: price.high,
-                        low: price.low,
-                        volume:price.volume
-                    });
-                }
-
-                // As a final sanity check, make sure the above resulted in more than one point.
-                if (points.length > 1) {
-                    if (settings.drawHighPrice)
-                        drawPrice(ctx, first, last, settings.highColor, "high", points, highestPrice);
-                    if (settings.drawLowPrice)
-                        drawPrice(ctx, first, last, settings.lowColor, "low", points, highestPrice);
-                    if (settings.drawOpenPrice)
-                        drawPrice(ctx, first, last,settings.openColor, "open", points, highestPrice);
-                    if (settings.drawClosePrice)
-                        drawPrice(ctx, first, last, settings.closeColor, "close", points, highestPrice);
-                    if (settings.drawVolume)
-                        drawVolume(ctx, first, last, settings.volumeColor, "volume", points, highestVolume);
-                    if (settings.drawKLine)
-                        drawKLine(ctx, first, last, points, highestPrice);
+            var metrics = [];
+            for (var i = 0; i < stockModel.size; i+=1) {
+                var metric = stockModel.get(i);
+                metrics.push({
+                                 capacity: metric.capacity,
+                                 charging: metric.charging
+                             });
+                if (metrics.length > 1) {
+//                    drawPrice(ctx, Qt.rgba(1, 0, 0, 1), "capacity", metrics, 0, 1);
+                    drawPrice(ctx, Qt.rgba(0, 1, 0, 1), "charging", metrics, 0, 1);
                 }
             }
         }
