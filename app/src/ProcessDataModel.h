@@ -5,6 +5,7 @@
 #include <QPair>
 #include <QString>
 #include <QVector>
+#include <QVariant>
 
 class ProcessDataModel : public QObject
 {
