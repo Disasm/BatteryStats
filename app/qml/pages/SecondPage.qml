@@ -59,7 +59,6 @@ Page {
 
         delegate: BackgroundItem {
             id: delegate
-
             Label {
                 x: Theme.paddingLarge
                 text: qsTr("Item") + " " + index
