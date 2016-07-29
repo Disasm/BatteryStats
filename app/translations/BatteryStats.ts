@@ -20,13 +20,6 @@
     </message>
 </context>
 <context>
-    <name>ProcessItem</name>
-    <message>
-        <source>Item</source>
-        <translation type="unfinished"></translation>
-    </message>
-</context>
-<context>
     <name>SecondPage</name>
     <message>
         <source>Nested Page</source>
