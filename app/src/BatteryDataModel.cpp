@@ -2,7 +2,6 @@
 
 BatteryDataModel::BatteryDataModel()
 {
-    m_elapsed = 0;
     m_logFile = 0;
     for (int i = 0; i < 100; i++)
     {
@@ -10,14 +9,8 @@ BatteryDataModel::BatteryDataModel()
         item.capacity = i / 100.f;
         item.isCharging = i > 50;
         item.time = i;
-        m_elapsed += item.time;
         m_items.append(item);
     }
-}
-
-int BatteryDataModel::elapsed() const
-{
-    return m_elapsed;
 }
 
 int BatteryDataModel::size() const

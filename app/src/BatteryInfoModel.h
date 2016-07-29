@@ -1,28 +1,28 @@
-#ifndef BATTERYDATAMODEL_H
-#define BATTERYDATAMODEL_H
+#ifndef BATTERYINFOMODEL_H
+#define BATTERYINFOMODEL_H
 
 #include <QObject>
+#include <QString>
 #include <QVariant>
 #include <QVector>
-#include <QPair>
 #include "LogFile.h"
 
 
-class BatteryDataModel : public QObject
+class BatteryInfoModel : public QObject
 {
     Q_OBJECT
     Q_PROPERTY(int size READ size NOTIFY sizeChanged)
     Q_PROPERTY(LogFile* logFile READ logFile WRITE setLogFile)
 
-    struct Item
+    struct Info
     {
-        int time;
-        float capacity;
-        bool isCharging;
+        QString batteryCharge;
+        QString batteryWatts;
+        QString batteryCapacity;
     };
 
 public:
-    BatteryDataModel();
+    BatteryInfoModel();
 
     int size() const;
 
@@ -42,8 +42,8 @@ private slots:
     void logFileChanged();
 
 private:
-    QVector<Item> m_items;
+    QVector<Info> m_info;
     LogFile* m_logFile;
 };
 
-#endif // BATTERYDATAMODEL_H
+#endif // BATTERYINFOMODEL_H

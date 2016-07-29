@@ -31,6 +31,7 @@
 #include <QtQuick>
 #include <sailfishapp.h>
 #include "BatteryDataModel.h"
+#include "BatteryInfoModel.h"
 #include "LogFile.h"
 #include "ProcessDataModel.h"
 
@@ -47,6 +48,7 @@ int main(int argc, char *argv[])
 
     qmlRegisterType<LogFile>("harbour.batterystats", 1, 0, "LogFile");
     qmlRegisterType<BatteryDataModel>("harbour.batterystats", 1, 0, "BatteryDataModel");
+    qmlRegisterType<BatteryInfoModel>("harbour.batterystats", 1, 0, "BatteryInfoModel");
     qmlRegisterType<ProcessDataModel>("harbour.batterystats", 1, 0, "ProcessDataModel");
 
     return SailfishApp::main(argc, argv);

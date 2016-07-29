@@ -37,31 +37,27 @@ Page {
     id: page
     SilicaListView {
         id: listView
-        model: 20
+        model: batteryInfoModel
         anchors.fill: parent
-        PullDownMenu {
-            MenuItem {
-                text: qsTr("Show Page 2")
-                onClicked: pageStack.push(Qt.resolvedUrl("SecondPage.qml"))
-            }
-        }
         header: PageHeader {
-            title: qsTr("Nested Page")
-        }
-        BatteryDataModel {
-            id: batteryDataModel
+            title: qsTr("Information")
         }
 
-        BatteryChart {
-            id: batteryChart
-            stockModel: batteryDataModel
+        LogFile {
+            id: log
+            fileName: "/home/nemo/battery.log"
+        }
+
+        BatteryInfoModel {
+            id: batteryInfoModel
+            logFile: log
         }
 
         delegate: BackgroundItem {
             id: delegate
             Label {
                 x: Theme.paddingLarge
-                text: qsTr("Item") + " " + index
+                text: "Capacity: " + model.capacity + "\n" + "Charge: " + model.charge + "\n" + "Watts: " + model.watts
                 anchors.verticalCenter: parent.verticalCenter
                 color: delegate.highlighted ? Theme.highlightColor : Theme.primaryColor
             }

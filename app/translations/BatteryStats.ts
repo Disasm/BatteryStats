@@ -18,15 +18,7 @@
 <context>
     <name>SecondPage</name>
     <message>
-        <source>Nested Page</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Item</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Show Page 2</source>
+        <source>Information</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
