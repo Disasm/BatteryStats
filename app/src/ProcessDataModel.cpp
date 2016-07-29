@@ -1,4 +1,6 @@
 #include "ProcessDataModel.h"
+#include <QMap>
+#include <QSet>
 
 bool comparator(const QPair<QString, float>& e1, const QPair<QString, float>& e2)
 {
@@ -52,6 +54,8 @@ void ProcessDataModel::setLogFile(LogFile *logFile)
     connect(m_logFile, SIGNAL(updated()), this, SLOT(logFileChanged()));
 }
 
+typedef QPair<QString, int> ProcessId;
+
 void ProcessDataModel::logFileChanged()
 {
     layoutAboutToBeChanged();
@@ -61,18 +65,50 @@ void ProcessDataModel::logFileChanged()
 
     m_items.clear();
 
-    /*QMap<QString, int> oldTime;
+    QMap<QString, int> oldTime;
+    QMap<ProcessId, int> lastTime;
+    QSet<ProcessId> lastPids;
 
     QList<LogFile::LogRecord> records = m_logFile->records();
     foreach(const LogFile::LogRecord &r, records)
     {
+        QSet<ProcessId> newPids;
+        QMap<ProcessId, int> newTime;
         foreach (const LogFile::ProcessRecord &rp, r.proc)
         {
-            //
+            ProcessId id = qMakePair(rp.name, rp.pid);
+            newPids.insert(id);
+            newTime[id] = rp.time;
         }
 
-        //m_items.append(item);
-    }*/
+        // Check for gone processes
+        foreach (const ProcessId &id, lastPids)
+        {
+            if (!newPids.contains(id))
+            {
+                oldTime[id.first] = oldTime.value(id.first, 0) + lastTime[id];
+            }
+        }
+
+        lastPids = newPids;
+        lastTime = newTime;
+    }
+
+    foreach (const ProcessId &id, lastPids)
+    {
+        oldTime[id.first] = oldTime.value(id.first, 0) + lastTime[id];
+    }
+
+    float totalTime = 0;
+    foreach (const QString &name, oldTime.keys())
+    {
+        totalTime += oldTime[name];
+    }
+    foreach (const QString &name, oldTime.keys())
+    {
+        QPair<QString, float> item = qMakePair(name, oldTime[name] / totalTime);
+        m_items.append(item);
+    }
 
     sort();
 
