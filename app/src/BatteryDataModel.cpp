@@ -14,7 +14,8 @@ BatteryDataModel::BatteryDataModel()
                 break;
             }
 
-            float r = ((float)qrand()) / (RAND_MAX * 20);
+            float r = ((float)qrand()) / RAND_MAX;
+            r /= 20;
             float c = prev + r * dir;
             if (c < 0) c = 0.0;
             if (c > 1.0) c = 1.0;

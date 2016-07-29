@@ -70,5 +70,5 @@ void LogFile::writeProcessList(const ProcessList &processList)
 
 void LogFile::writeProcessRecord(const ProcessRecord &processRecord)
 {
-    fprintf(m_file, "[\"%s\",%d,%0.2f]", processRecord.name.c_str(), processRecord.pid, processRecord.time);
+    fprintf(m_file, "[\"%s\",%d,%d]", processRecord.name.c_str(), processRecord.pid, processRecord.time);
 }

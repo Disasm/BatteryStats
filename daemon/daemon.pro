@@ -22,5 +22,3 @@ HEADERS += \
     genericbatteryinfo.h \
     processinfo.h \
     logfile.h
-
-LIBS += -lprocps
