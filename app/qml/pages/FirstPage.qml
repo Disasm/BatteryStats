@@ -66,7 +66,7 @@ Page {
                     t -= hours * 3600;
                     var mins = Math.floor(t / 60);
                     t -= mins * 60;
-                    var str;
+                    var str = null;
                     if(days) {
                         str = str + days + "d ";
                     }
