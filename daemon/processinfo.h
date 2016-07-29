@@ -7,7 +7,7 @@
 typedef struct {
     std::string name;
     int pid;
-    float time;
+    int time;
 } ProcessRecord;
 typedef std::list<ProcessRecord> ProcessList;
 

@@ -26,13 +26,13 @@ bool parseProcessRecord(const std::string &str, ProcessRecord &r)
     if (p == std::string::npos) return false;
 
     std::string s_pid = s.substr(0, p);
-    s = s.substr(p+1, 0);
+    s = s.substr(p+1);
 
     p = s.find(' ');
     if (p == std::string::npos) return false;
 
     std::string s_time = s.substr(0, p);
-    s = s.substr(p+1, 0);
+    s = s.substr(p+1);
 
     p = s.find(' ');
     if (p != std::string::npos)
@@ -41,20 +41,21 @@ bool parseProcessRecord(const std::string &str, ProcessRecord &r)
     }
 
     std::string s_name = s;
+    if (s_name.substr(0, 1) == "[") s_name = "<system>";
     p = s_name.rfind('/');
     if (p != std::string::npos)
     {
         s_name = s_name.substr(p+1);
     }
 
-    float time = 0.0f;
+    int time = 0;
     p = s_time.find(':');
     time += std::atoi(s_time.substr(0, p).c_str());
-    s_time.substr(p+1);
+    s_time = s_time.substr(p+1);
     time *= 60;
     p = s_time.find(':');
     time += std::atoi(s_time.substr(0, p).c_str());
-    s_time.substr(p+1);
+    s_time = s_time.substr(p+1);
     time *= 60;
     time += std::atoi(s_time.c_str());
 
