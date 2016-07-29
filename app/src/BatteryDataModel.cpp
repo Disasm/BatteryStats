@@ -47,19 +47,12 @@ void BatteryDataModel::logFileChanged()
 
     m_items.clear();
     QList<LogFile::LogRecord> records = m_logFile->records();
-    int timeOffset = 0;
-    int oldTime = 0;
     foreach(const LogFile::LogRecord &r, records)
     {
         Item item;
         item.capacity = r.capacity;
         item.isCharging = r.isCharging;
-
-        if (r.time < oldTime)
-        {
-            timeOffset = oldTime - r.time + 1;
-        }
-        item.time = r.time + timeOffset;
+        item.time = r.time;
 
         m_items.append(item);
     }
