@@ -17,6 +17,8 @@ bool LogFile::open(const char *fileName)
 {
     m_fileName = strdup(fileName);
     m_file = fopen(fileName, "a");
+    if (m_file == 0) return false;
+    return true;
 }
 
 void LogFile::flush()
@@ -33,7 +35,7 @@ void LogFile::write(BatteryInfo *batteryInfo, const ProcessList &processList)
 
     float capacity = batteryInfo->capacity();
     bool isCharging = batteryInfo->isCharging();
-    fprintf(m_file, "{'time': %llu, 'capacity': %0.2f, 'isCharging': %s, 'proc': ", (unsigned long long)ts.tv_sec, capacity, isCharging?"true":"false");
+    fprintf(m_file, "{\"time\": %llu, \"capacity\": %0.2f, \"isCharging\": %s, \"proc\": ", (unsigned long long)ts.tv_sec, capacity, isCharging?"true":"false");
     writeProcessList(processList);
     fprintf(m_file, "},\n");
     fflush(m_file);
