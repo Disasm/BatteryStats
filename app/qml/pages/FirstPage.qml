@@ -51,12 +51,33 @@ Page {
 
             Label {
                 anchors.horizontalCenter: parent.horizontalCenter
-                text: "73% - Not charging"
+                text: Math.floor(batteryDataModel.get(batteryDataModel.size - 1).capacity * 100) + "% - Not charging"
             }
 
             Label {
                 anchors.horizontalCenter: parent.horizontalCenter
-                text: "1d 5h 46m on battery"
+                text: toDate(batteryDataModel.get(batteryDataModel.size - 1).time) + " on battery"
+
+                function toDate(time) {
+                    var t = time;
+                    var days = Math.floor(t / 86400);
+                    t -= days * 86400;
+                    var hours = Math.floor(t / 3600);
+                    t -= hours * 3600;
+                    var mins = Math.floor(t / 60);
+                    t -= mins * 60;
+                    var str;
+                    if(days) {
+                        str = str + days + "d ";
+                    }
+                    if(hours) {
+                        str = str + hours + "h ";
+                    }
+                    if(mins) {
+                        str = str + mins + "min ";
+                    }
+                    return str + t + "sec";
+                }
             }
 
             BatteryChart {
