@@ -14,6 +14,8 @@ class BatteryDataModel : public QObject
     Q_PROPERTY(int size READ size NOTIFY sizeChanged)
     Q_PROPERTY(int elapsed READ elapsed NOTIFY elapsedChanged)
     Q_PROPERTY(LogFile* logFile READ logFile WRITE setLogFile)
+    Q_PROPERTY(int prediction READ prediction NOTIFY predictionChanged)
+    Q_PROPERTY(bool charging READ charging NOTIFY chargingChanged)
 
     struct Item
     {
@@ -33,9 +35,16 @@ public:
     Q_INVOKABLE
     QVariant get(int index) const;
 
+    Q_INVOKABLE
+    int prediction();
+
+    bool charging();
+
 signals:
     void elapsedChanged();
     void sizeChanged();
+    void predictionChanged();
+    void chargingChanged();
 
 public slots:
     void setLogFile(LogFile* logFile);
@@ -48,6 +57,8 @@ private:
     int m_elapsed;
     QVector<Item> m_items;
     LogFile* m_logFile;
+    bool    m_predictionValid;
+    int     m_prediction;
 };
 
 #endif // BATTERYDATAMODEL_H

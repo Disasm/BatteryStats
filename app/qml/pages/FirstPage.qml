@@ -59,6 +59,12 @@ Page {
                 text: "1d 5h 46m on battery"
             }
 
+            Label {
+                id: prediction
+                anchors.horizontalCenter: parent.horizontalCenter
+                text: "Prediction: " + batteryDataModel.prediction
+            }
+
             BatteryChart {
                 id: batteryChart
                 width: parent.width
