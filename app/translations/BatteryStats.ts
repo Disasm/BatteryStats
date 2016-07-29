@@ -11,10 +11,6 @@
 <context>
     <name>FirstPage</name>
     <message>
-        <source>Show Page 2</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Battery</source>
         <translation type="unfinished"></translation>
     </message>

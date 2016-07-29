@@ -187,27 +187,26 @@ Rectangle {
             ctx.lineWidth = 1;
 
             drawBackground(ctx);
-            ctx.save();
-            ctx.globalAlpha = 0.7;
-     //       if(metric.charging == true) {
-                ctx.strokeStyle = Qt.rgba(1, 0, 0, 1);
-     /*       } else {
-                ctx.strokeStyle = Qt.rgba(0, 1, 0, 1);
-            }*/
-            ctx.lineWidth = 3;
-            ctx.beginPath();
             if(stockModel.size > 1) {
                 var elapsed = stockModel.get(stockModel.size - 1).time;
-                for (var i = 0; i < stockModel.size; i+=1) {
+                var oldCharging = stockModel.get(0).charging;
+                for (var i = 1; i < stockModel.size; i+=1) {
+                    var prevmetric = stockModel.get(i - 1);
                     var metric = stockModel.get(i);
-                    if(i == 0) {
-                        ctx.moveTo(0, canvas.height * (1 - metric.capacity));
+                    ctx.save();
+                    ctx.globalAlpha = 0.7;
+                    ctx.lineWidth = 3;
+                    ctx.beginPath();
+                    ctx.moveTo(canvas.width * prevmetric.time / elapsed, canvas.height * (1 - prevmetric.capacity));
+                    if(metric.charging == true) {
+                        ctx.strokeStyle = Qt.rgba(1, 0, 0, 1);
                     } else {
-                        ctx.lineTo(canvas.width * metric.time / elapsed, canvas.height * (1 - metric.capacity));
+                        ctx.strokeStyle = Qt.rgba(0, 1, 0, 1);
                     }
+                    ctx.lineTo(canvas.width * metric.time / elapsed, canvas.height * (1 - metric.capacity));
+                    ctx.stroke();
                 }
             }
-            ctx.stroke();
             ctx.restore();
         }
     }

@@ -8,7 +8,7 @@ BatteryDataModel::BatteryDataModel()
     {
         Item item;
         item.capacity = i / 100.f;
-        item.isCharging = i < 50;
+        item.isCharging = i > 50;
         item.time = i;
         m_elapsed += item.time;
         m_items.append(item);
