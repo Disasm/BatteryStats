@@ -99,14 +99,14 @@ void ProcessDataModel::logFileChanged()
         oldTime[id.first] = oldTime.value(id.first, 0) + lastTime[id];
     }
 
-    float totalTime = 0;
+    int maxTime = 0;
     foreach (const QString &name, oldTime.keys())
     {
-        totalTime += oldTime[name];
+        maxTime = qMax(oldTime[name], maxTime);
     }
     foreach (const QString &name, oldTime.keys())
     {
-        QPair<QString, float> item = qMakePair(name, oldTime[name] / totalTime);
+        QPair<QString, float> item = qMakePair(name, oldTime[name] / (float)maxTime);
         m_items.append(item);
     }
 
