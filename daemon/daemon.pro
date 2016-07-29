@@ -6,6 +6,8 @@ TEMPLATE = app
 TARGET = daemon
 INCLUDEPATH += .
 
+CONFIG += c++11
+
 # Input
 SOURCES += daemon.cpp \
     rawbatteryinfo.cpp \
