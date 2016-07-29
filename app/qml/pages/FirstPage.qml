@@ -65,8 +65,14 @@ Page {
             }
         }
 
+        LogFile {
+            id: log
+            fileName: "/home/nemo/battery.log"
+        }
+
         ProcessDataModel {
             id: processDataModel
+            logFile: log
         }
 
         model: processDataModel
@@ -80,6 +86,10 @@ Page {
                 text: qsTr("Show Page 2")
                 onClicked: pageStack.push(Qt.resolvedUrl("SecondPage.qml"))
             }
+        }
+
+        Component.onCompleted: {
+            log.update();
         }
 
         VerticalScrollDecorator {}
