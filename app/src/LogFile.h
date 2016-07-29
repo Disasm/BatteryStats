@@ -20,7 +20,7 @@ public slots:
     void update();
 
 private:
-    QString     m_fileName;
+    QString m_fileName;
 };
 
 #endif // LOGFILE_H

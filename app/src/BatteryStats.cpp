@@ -31,6 +31,7 @@
 #include <QtQuick>
 #include <sailfishapp.h>
 #include "BatteryDataModel.h"
+#include "ProcessDataModel.h"
 
 int main(int argc, char *argv[])
 {
@@ -44,6 +45,7 @@ int main(int argc, char *argv[])
     // To display the view, call "show()" (will show fullscreen on device).
 
     qmlRegisterType<BatteryDataModel>("harbour.batterystats", 1, 0, "BatteryDataModel");
+    qmlReqisterType<ProcessDataModel>("harbour.batterystats", 1, 0, "ProcessDataModel");
 
     return SailfishApp::main(argc, argv);
 }
