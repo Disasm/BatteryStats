@@ -50,24 +50,38 @@ Page {
                 title: qsTr("Battery")
             }
 
-            BatteryDataModel {
-                id: batteryDataModel
+            Label {
+                anchors.horizontalCenter: parent.horizontalCenter
+                text: "73% - Not charging"
             }
 
-            Column {
+            Label {
+                anchors.horizontalCenter: parent.horizontalCenter
+                text: "1d 5h 46m on battery"
+            }
+
+            BatteryChart {
+                id: batteryChart
+                width: parent.width
+                stockModel: batteryDataModel
+            }
+
+            /*Column {
                 id: mainColumn
                 width: parent.width
                 spacing: Theme.paddingLarge
-                BatteryChart {
-                    id: batteryChart
-                    stockModel: batteryDataModel
-                }
-            }
+
+            }*/
         }
 
         LogFile {
             id: log
             fileName: "/home/nemo/battery.log"
+        }
+
+        BatteryDataModel {
+            id: batteryDataModel
+            logFile: log
         }
 
         ProcessDataModel {
