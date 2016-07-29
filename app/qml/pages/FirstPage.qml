@@ -43,7 +43,6 @@ Page {
         header: Column {
             id: column
             width: parent.width
-            height: header.height + mainColumn.height + Theme.paddingLarge
 
             PageHeader {
                 id: header
@@ -66,12 +65,9 @@ Page {
                 stockModel: batteryDataModel
             }
 
-            /*Column {
-                id: mainColumn
-                width: parent.width
-                spacing: Theme.paddingLarge
-
-            }*/
+            Label {
+                text: " "
+            }
         }
 
         LogFile {
@@ -95,18 +91,17 @@ Page {
             load: model.load
         }
 
-        PullDownMenu {
-            MenuItem {
-                text: qsTr("Show Page 2")
-                onClicked: pageStack.push(Qt.resolvedUrl("SecondPage.qml"))
-            }
-        }
-
         Component.onCompleted: {
-            log.update();
+            //log.update();
         }
 
         VerticalScrollDecorator {}
+    }
+
+    onStatusChanged: {
+        if (status === PageStatus.Active && pageStack.depth === 1) {
+            pageStack.pushAttached("SecondPage.qml", {});
+        }
     }
 }
 
