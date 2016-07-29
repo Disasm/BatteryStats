@@ -11,7 +11,7 @@ BackgroundItem {
         height: parent.height
         color: "green"
         Label {
-            x: Theme.paddingSmall
+            x: Theme.horizontalPageMargin
             text: name
             anchors.verticalCenter: parent.verticalCenter
             color: item.highlighted ? Theme.highlightColor : Theme.primaryColor
