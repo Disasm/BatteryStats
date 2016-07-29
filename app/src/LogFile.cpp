@@ -73,6 +73,25 @@ void LogFile::update()
             m_items.append(r);
         }
     }
+
+    if (m_items.size() > 0)
+    {
+        int timeOffset = m_items.first().time;
+        int oldTime = 0;
+        for (int i = 0; i < m_items.size(); i++)
+        {
+            LogRecord &r = m_items[i];
+
+            int newTime = r.time - timeOffset;
+            if ((r.time - oldTime) < 0)
+            {
+                newTime = oldTime - timeOffset + 1;
+                timeOffset = oldTime;
+            }
+            oldTime = r.time;
+            r.time = newTime;
+        }
+    }
     emit updated();
 }
 

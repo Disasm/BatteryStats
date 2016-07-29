@@ -43,30 +43,46 @@ Page {
         header: Column {
             id: column
             width: parent.width
-            height: header.height + mainColumn.height + Theme.paddingLarge
 
             PageHeader {
                 id: header
                 title: qsTr("Battery")
             }
 
-            BatteryDataModel {
-                id: batteryDataModel
+            Label {
+                anchors.horizontalCenter: parent.horizontalCenter
+                text: "73% - Not charging"
             }
 
-            Column {
-                id: mainColumn
-                width: parent.width
-                spacing: Theme.paddingLarge
-                BatteryChart {
-                    id: batteryChart
-                    stockModel: batteryDataModel
-                }
+            Label {
+                anchors.horizontalCenter: parent.horizontalCenter
+                text: "1d 5h 46m on battery"
             }
+
+            BatteryChart {
+                id: batteryChart
+                width: parent.width
+                stockModel: batteryDataModel
+            }
+
+            Label {
+                text: " "
+            }
+        }
+
+        LogFile {
+            id: log
+            fileName: "/home/nemo/battery.log"
+        }
+
+        BatteryDataModel {
+            id: batteryDataModel
+            logFile: log
         }
 
         ProcessDataModel {
             id: processDataModel
+            logFile: log
         }
 
         model: processDataModel
@@ -75,14 +91,17 @@ Page {
             load: model.load
         }
 
-        PullDownMenu {
-            MenuItem {
-                text: qsTr("Show Page 2")
-                onClicked: pageStack.push(Qt.resolvedUrl("SecondPage.qml"))
-            }
+        Component.onCompleted: {
+            //log.update();
         }
 
         VerticalScrollDecorator {}
+    }
+
+    onStatusChanged: {
+        if (status === PageStatus.Active && pageStack.depth === 1) {
+            pageStack.pushAttached("SecondPage.qml", {});
+        }
     }
 }
 
