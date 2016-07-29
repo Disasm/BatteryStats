@@ -31,6 +31,7 @@
 import QtQuick 2.0
 import Sailfish.Silica 1.0
 import "pages"
+import harbour.batterystats 1.0
 
 ApplicationWindow
 {
@@ -38,6 +39,19 @@ ApplicationWindow
     cover: Qt.resolvedUrl("cover/CoverPage.qml")
     allowedOrientations: Orientation.All
     _defaultPageOrientations: Orientation.All
+
+    LogFile {
+        id: log
+        fileName: "/home/nemo/battery.log"
+    }
+
+    BatteryDataModel {
+        id: batteryDataModel
+        logFile: log
+    }
+
+    ProcessDataModel {
+        id: processDataModel
+        logFile: log
+    }
 }
-
-

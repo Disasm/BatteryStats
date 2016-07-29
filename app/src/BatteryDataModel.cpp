@@ -113,13 +113,6 @@ int BatteryDataModel::prediction()
     return m_prediction;
 }
 
-QString BatteryDataModel::predictionText()
-{
-    int p = prediction();
-    if (p <= 0) return QString();
-    return QString::number(p);
-}
-
 bool BatteryDataModel::charging()
 {
     if (m_items.size()==0) return false;

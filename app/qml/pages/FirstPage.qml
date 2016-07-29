@@ -51,7 +51,8 @@ Page {
 
             Label {
                 anchors.horizontalCenter: parent.horizontalCenter
-                text: Math.floor(batteryDataModel.get(batteryDataModel.size - 1).capacity * 100) + "% - Not charging"
+                text: Math.floor(batteryDataModel.get(batteryDataModel.size - 1).capacity * 100) + "% - " +
+                      (batteryDataModel.charging?"Charging":"Not charging")
             }
 
             Label {
@@ -78,12 +79,18 @@ Page {
                     }
                     return str + t + "sec";
                 }
+
+                function chargingString(time)
+                {
+                    if (time < 0) return "Unknown"
+                    return toDate(time);
+                }
             }
 
             Label {
                 id: prediction
                 anchors.horizontalCenter: parent.horizontalCenter
-                text: "Prediction: " + batteryDataModel.prediction
+                text: "Time left till" + (batteryDataModel.charging?"full":"empty") + ": " + chargingString(batteryDataModel.prediction)
             }
 
             BatteryChart {
@@ -97,20 +104,7 @@ Page {
             }
         }
 
-        LogFile {
-            id: log
-            fileName: "/home/nemo/battery.log"
-        }
 
-        BatteryDataModel {
-            id: batteryDataModel
-            logFile: log
-        }
-
-        ProcessDataModel {
-            id: processDataModel
-            logFile: log
-        }
 
         model: processDataModel
         delegate: ProcessItem {
@@ -119,7 +113,7 @@ Page {
         }
 
         Component.onCompleted: {
-            //log.update();
+            log.update();
         }
 
         VerticalScrollDecorator {}
