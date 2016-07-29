@@ -30,7 +30,8 @@
 
 import QtQuick 2.0
 import Sailfish.Silica 1.0
-
+import "../libs"
+import harbour.batterystats 1.0
 
 Page {
     id: page
@@ -38,9 +39,24 @@ Page {
         id: listView
         model: 20
         anchors.fill: parent
+        PullDownMenu {
+            MenuItem {
+                text: qsTr("Show Page 2")
+                onClicked: pageStack.push(Qt.resolvedUrl("SecondPage.qml"))
+            }
+        }
         header: PageHeader {
             title: qsTr("Nested Page")
         }
+        BatteryDataModel {
+            id: batteryDataModel
+        }
+
+        BatteryChart {
+            id: batteryChart
+            stockModel: batteryDataModel
+        }
+
         delegate: BackgroundItem {
             id: delegate
 

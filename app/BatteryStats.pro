@@ -45,5 +45,6 @@ CONFIG += sailfishapp_i18n
 TRANSLATIONS += translations/BatteryStats-de.ts
 
 DISTFILES += \
-    qml/libs/StockChart.qml \
-    qml/pages/TestPage.qml
+    qml/pages/TestPage.qml \
+    qml/libs/BatteryChart.qml \
+    qml/libs/ProcessItem.qml
