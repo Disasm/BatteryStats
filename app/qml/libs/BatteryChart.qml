@@ -103,7 +103,7 @@ Rectangle {
                     ctx.lineWidth = 3;
                     ctx.beginPath();
                     ctx.moveTo(canvas.width * prevmetric.time / elapsed, canvas.height * (1 - prevmetric.capacity));
-                    if(metric.charging == true) {
+                    if(metric.charging == false) {
                         ctx.strokeStyle = Qt.rgba(1, 0, 0, 1);
                     } else {
                         ctx.strokeStyle = Qt.rgba(0, 1, 0, 1);

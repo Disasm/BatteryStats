@@ -59,38 +59,13 @@ Page {
                 anchors.horizontalCenter: parent.horizontalCenter
                 text: toDate(batteryDataModel.get(batteryDataModel.size - 1).time) + " on battery"
 
-                function toDate(time) {
-                    var t = time;
-                    var days = Math.floor(t / 86400);
-                    t -= days * 86400;
-                    var hours = Math.floor(t / 3600);
-                    t -= hours * 3600;
-                    var mins = Math.floor(t / 60);
-                    t -= mins * 60;
-                    var str = null;
-                    if(days) {
-                        str = str + days + "d ";
-                    }
-                    if(hours) {
-                        str = str + hours + "h ";
-                    }
-                    if(mins) {
-                        str = str + mins + "min ";
-                    }
-                    return str + t + "sec";
-                }
 
-                function chargingString(time)
-                {
-                    if (time < 0) return "Unknown"
-                    return toDate(time);
-                }
             }
 
             Label {
                 id: prediction
                 anchors.horizontalCenter: parent.horizontalCenter
-                text: "Time left till" + (batteryDataModel.charging?"full":"empty") + ": " + chargingString(batteryDataModel.prediction)
+                text: "Time left till " + (batteryDataModel.charging?"full":"empty") + ": " + chargingString(batteryDataModel.prediction)
             }
 
             BatteryChart {

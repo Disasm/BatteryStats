@@ -58,6 +58,7 @@ void LogFile::update()
         {
             QJsonObject o = v.toObject();
             LogRecord r;
+            r.time = o["time"].toInt();
             r.capacity = o["capacity"].toDouble();
             r.isCharging = o["isCharging"].toBool();
             QJsonArray proc = o["proc"].toArray();

@@ -34,7 +34,7 @@ BatteryDataModel::BatteryDataModel()
         }
         else
         {
-            item.capacity = (i-50) / 100.f;
+            item.capacity = 0.5f + (i-50) / 100.f;
         }
 
         item.isCharging = i > 50;
@@ -79,7 +79,7 @@ int BatteryDataModel::prediction()
     {
         if (item.isCharging == !chargeFlag)
         {
-            if (!dischargeInterval.isEmpty())
+            if (dischargeInterval.size() > 2)
             {
                 int dt = dischargeInterval.last().time - dischargeInterval.first().time;
                 float dc = dischargeInterval.last().capacity - dischargeInterval.first().capacity;
@@ -94,14 +94,14 @@ int BatteryDataModel::prediction()
             dischargeInterval.append(item);
         }
     }
-    if (!dischargeInterval.isEmpty())
+    if (dischargeInterval.size() > 2)
     {
         int dt = dischargeInterval.last().time - dischargeInterval.first().time;
         float dc = dischargeInterval.last().capacity - dischargeInterval.first().capacity;
         if (!chargeFlag) dc = -dc;
         dtSum += dt;
         dcSum += dc;
-        qWarning("dc=%0.2f", dc);
+        qWarning("dc=%0.2f dt=%d", dc, dt);
     }
     qWarning("dtSum=%d, dcSum=%0.2f, chargeFlag=%d", dtSum, dcSum, chargeFlag?1:0);
     if (dcSum < 0.001) return -1;

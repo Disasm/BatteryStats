@@ -31,12 +31,13 @@
 import QtQuick 2.0
 import Sailfish.Silica 1.0
 import "pages"
+import "cover"
 import harbour.batterystats 1.0
 
 ApplicationWindow
 {
     initialPage: Component { FirstPage { } }
-    cover: Qt.resolvedUrl("cover/CoverPage.qml")
+    cover: CoverPage {}
     allowedOrientations: Orientation.All
     _defaultPageOrientations: Orientation.All
 
@@ -53,5 +54,32 @@ ApplicationWindow
     ProcessDataModel {
         id: processDataModel
         logFile: log
+    }
+
+    function toDate(time) {
+        var t = time;
+        var days = Math.floor(t / 86400);
+        t -= days * 86400;
+        var hours = Math.floor(t / 3600);
+        t -= hours * 3600;
+        var mins = Math.floor(t / 60);
+        t -= mins * 60;
+        var str = null;
+        if(days) {
+            str = str + days + "d ";
+        }
+        if(hours) {
+            str = str + hours + "h ";
+        }
+        if(mins) {
+            str = str + mins + "min ";
+        }
+        return str/* + t + "sec"*/;
+    }
+
+    function chargingString(time)
+    {
+        if (time < 0) return "Unknown"
+        return toDate(time);
     }
 }

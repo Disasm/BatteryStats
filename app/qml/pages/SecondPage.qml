@@ -34,38 +34,62 @@ import "../libs"
 import harbour.batterystats 1.0
 
 Page {
+    ProcessDataModel {
+        id: processDataModel2
+        logFile: log
+    }
+
+    BatteryDataModel {
+        id: batteryDataModel2
+    }
+
     id: page
     SilicaListView {
         id: listView
-        model: 20
+        model: processDataModel2
+
         anchors.fill: parent
-        PullDownMenu {
-            MenuItem {
-                text: qsTr("Show Page 2")
-                onClicked: pageStack.push(Qt.resolvedUrl("SecondPage.qml"))
+        header: Column {
+            id: column
+            width: parent.width
+
+            PageHeader {
+                id: header
+                title: qsTr("Battery")
             }
-        }
-        header: PageHeader {
-            title: qsTr("Nested Page")
-        }
-        BatteryDataModel {
-            id: batteryDataModel
-        }
 
-        BatteryChart {
-            id: batteryChart
-            stockModel: batteryDataModel
-        }
-
-        delegate: BackgroundItem {
-            id: delegate
             Label {
-                x: Theme.paddingLarge
-                text: qsTr("Item") + " " + index
-                anchors.verticalCenter: parent.verticalCenter
-                color: delegate.highlighted ? Theme.highlightColor : Theme.primaryColor
+                anchors.horizontalCenter: parent.horizontalCenter
+                text: "100% - Charging"
             }
-            onClicked: console.log("Clicked " + index)
+
+            Label {
+                anchors.horizontalCenter: parent.horizontalCenter
+                text: toDate(1234) + " on battery"
+
+
+            }
+
+            Label {
+                id: prediction
+                anchors.horizontalCenter: parent.horizontalCenter
+                text: "Time left till " + "empty" + ": " + chargingString(12345)
+            }
+
+            BatteryChart {
+                id: batteryChart
+                width: parent.width
+                stockModel: batteryDataModel2
+            }
+
+            Label {
+                text: " "
+            }
+        }
+
+        delegate: ProcessItem {
+            name: model.name
+            load: model.load
         }
         VerticalScrollDecorator {}
     }

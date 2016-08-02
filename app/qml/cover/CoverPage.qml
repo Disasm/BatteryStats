@@ -32,21 +32,20 @@ import QtQuick 2.0
 import Sailfish.Silica 1.0
 
 CoverBackground {
-    Label {
-        id: label
-        anchors.centerIn: parent
-        text: qsTr("My Cover")
-    }
-
-    CoverActionList {
-        id: coverAction
-
-        CoverAction {
-            iconSource: "image://theme/icon-cover-next"
+    Column {
+        anchors.fill: parent
+        Label {
+            id: label
+            anchors.centerIn: parent
+            text: "Battery"
         }
-
-        CoverAction {
-            iconSource: "image://theme/icon-cover-pause"
+        Label {
+            anchors.centerIn: parent
+            text: chargingString(batteryDataModel.prediction)
+        }
+        Label {
+            anchors.centerIn: parent
+            text: "till " + (batteryDataModel.charging?"full":"empty")
         }
     }
 }
